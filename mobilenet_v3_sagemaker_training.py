@@ -9,10 +9,10 @@ IMG_SIZE = (224, 224)
 
 class EarlyStoppingAtMaxValAccuracy(tf.keras.callbacks.Callback):
     """
-    Stop training when the val accuracy is no longer improving.
+    Stop training when the validation accuracy is no longer improving.
 
     Arguments:
-      patience: Number of epochs to wait after min has been hit. After this
+      patience: Number of epochs to wait after max validation accuracy has been hit. After this
       number of no improvement, training stops.
     """
 
@@ -84,7 +84,6 @@ def model_training(
     mirrored_strategy = tf.distribute.MirroredStrategy()
     
     with mirrored_strategy.scope():
-
         data_augmentation = tf.keras.Sequential([
           tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal'),
           tf.keras.layers.experimental.preprocessing.RandomRotation(0.2),
